@@ -28,13 +28,13 @@ class SiteApi extends Api {
   /**
    * Site api constructor.
    */
-  public function __construct($host, $site_id, $site_pass, $params = array()) {
+  public function __construct($params = array()) {
     if (!is_array($params)) {
       $params = array();
     }
-    $params['site_id']   = $site_id;
-    $params['site_pass'] = $site_pass;
-    parent::__construct($host, $params);
+    $params['site_id']   = config('gmo.site.id');
+    $params['site_pass'] = config('gmo.site.password');
+    parent::__construct($params);
   }
 
   /**

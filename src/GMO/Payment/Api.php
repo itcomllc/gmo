@@ -754,8 +754,8 @@ class Api {
   /**
    * Object constructor.
    */
-  public function __construct($host, $params = array()) {
-    $this->host = trim($host, '/');
+  public function __construct($params = array()) {
+    $this->host = trim(config('gmo.host'), '/');
     // Set default parameters.
     if ($params && is_array($params)) {
       $this->defaultParams = $params;

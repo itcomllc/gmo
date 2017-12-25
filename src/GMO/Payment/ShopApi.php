@@ -38,13 +38,13 @@ class ShopApi extends Api {
   /**
    * Object constructor.
    */
-  public function __construct($host, $shop_id, $shop_pass, $params = array()) {
+  public function __construct($params = array()) {
     if (!is_array($params)) {
       $params = array();
     }
-    $params['shop_id']   = $shop_id;
-    $params['shop_pass'] = $shop_pass;
-    parent::__construct($host, $params);
+    $params['shop_id']   = config('gmo.shop.id');
+    $params['shop_pass'] = config('gmo.shop.password');
+    parent::__construct($params);
   }
 
   /**
