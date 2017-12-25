@@ -3449,4 +3449,76 @@ class ShopApi extends Api {
 
     return $this->callApi('execTranVirtualaccount', $data);
   }
+  
+  /**
+   * UnregisterRecurring
+   *
+   * @Input parameters
+   *
+   * Recurring ID (自動売上ID)
+   * --RecurringID string(15) not null.
+   **/
+  public function unregisterRecurring($recurring_id){
+	$data = array(
+	  'recurring_id' => $recurring_id
+	);
+	
+	return $this->callApi('unregisterRecurring', $data);
+  }
+  
+  /**
+   * ChangeRecurring
+   *
+   * @Input parameters
+   *
+   * Recurring ID (自動売上ID)
+   * --RecurringID string(15) not null.
+   *
+   * Amount (利用金額)
+   * --Amount integer(7) not null.
+   *
+   * Tax (税送料)
+   * --Tax integer(7) null.
+   **/
+  public function changeRecurring($recurring_id, $amount, $data = array()){
+	if (!is_array($data)) {
+      $data = array();
+    }
+	$data['recurring_id']	= $recurring_id;
+	$data['amount']			= $amount;
+	
+	return $this->callApi('changeRecurring', $data);
+  }
+  
+  /**
+   * SearchRecurring
+   *
+   * @Input parameters
+   *
+   * Recurring ID (自動売上ID)
+   * --RecurringID string(15) not null.
+   **/
+  public function searchRecurring($recurring_id){
+	$data = array(
+	  'recurring_id' => $recurring_id
+	);
+	
+	return $this->callApi('searchRecurring', $data);
+  }
+  
+  /**
+   * SearchRecurringResult
+   *
+   * @Input parameters
+   *
+   * Recurring ID (自動売上ID)
+   * --RecurringID string(15) not null.
+   **/
+  public function searchRecurringResult($recurring_id){
+	$data = array(
+	  'recurring_id' => $recurring_id
+	);
+	
+	return $this->callApi('searchRecurringResult', $data);
+  }
 }
