@@ -497,7 +497,7 @@ class Api {
     ),
 	'regist_type' => array(
 	  'key' => 'RegistType',
-	  'length' = 1,
+	  'length' => 1,
 	),
     'register_disp_1' => array(
       'key' => 'RegisterDisp1',
