@@ -7,7 +7,7 @@
 
 namespace GMO\Payment;
 
-use GMO\Payment\Exceptions\GmoExcetion;
+use GMO\Payment\Exceptions\GmoException;
 
 /**
  * Method : IKKATU(一括).
