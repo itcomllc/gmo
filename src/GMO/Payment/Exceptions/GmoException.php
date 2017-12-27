@@ -12,7 +12,7 @@ class GmoException extends \Exception
 		$this->result = $result;
 		
 		$this->info	= empty($result['ErrInfo'])?null:$result['ErrInfo'];
-		$code		= empty($result['ErrCode'])?0:$result['ErrCode'];
+		$code		= empty($result['ErrCode'])?0:substr($result['ErrCode'], 1);
 		$message = Consts::getErrorMessage($this->info);
 		
 		parent::__construct($message, $code, $previous);
