@@ -7,6 +7,8 @@
 
 namespace GMO\Payment;
 
+use GMO\Payment\Exceptions\GmoExcetion;
+
 /**
  * Method : IKKATU(一括).
  */
@@ -1020,7 +1022,11 @@ class Api {
     $uri = $this->getApiUrl();
     // Process parameters as GMO format.
     $params = $this->buildParams();
-    return $this->request($uri, $params);
+	$result = $this->request($uri, $params);
+	if(empty($result['success'])){
+		throw new GmoException($result['result']);
+	}
+    return $result;
   }
 
   /**
