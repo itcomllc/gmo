@@ -1029,7 +1029,9 @@ class Api {
     $params = $this->buildParams();
 	$result = $this->request($uri, $params);
 	if(empty($result['success'])){
-		throw new GmoException($result['result']);
+		// throw new GmoException($result['result']);
+		$errors = $this->getErrors($result);
+		throw $this->getException($errors);
 	}
     return $result;
   }
@@ -1052,5 +1054,30 @@ class Api {
     }
     return $params;
   }
+  
+  protected function getErrors($result) {
+	$infos		= explode('|', $result['ErrInfo']);
+	$codes		= explode('|', $result['ErrCode']);
+	$infoCount	= count($infos);
+	$codeCount	= count($codes);
+	$count		= ($infoCount<$codeCount)?$infoCount:$codeCount;
+	
+	$errors = array();
+	for ($i=0; $i<$count; $i++){
+	  $errors[] = [
+	    'code' => $codes[$i],
+		'info' => $infos[$i],
+	}
+	
+	return $errors;
+  }
 
+  protected function getException($errors) {
+	if(empty($errors)){
+	  return null;
+	}
+	$error = array_shift($errors);
+	return new GmoException($error, $this->getException($errors));
+  }
+  
 }
