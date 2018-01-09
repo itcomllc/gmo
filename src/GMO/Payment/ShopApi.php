@@ -3521,4 +3521,133 @@ class ShopApi extends Api {
 	
 	return $this->callApi('searchRecurringResult', $data);
   }
+  
+  /**
+   * EntryTranSbContinuance
+   * 
+   * @Input parameters
+   *
+   * Order ID (オーダーID)
+   * --OrderID string(27) not null
+   *
+   * Amount (利用金額)
+   * --Amount integer(8) not null
+   * 
+   * Tax (利用金額)
+   * --Tax Integer(8) null
+   **/
+  public function entryTranSbContinuance($order_id, $amount, $data = array()){
+	if (!is_array($data)) {
+      $data = array();
+    }
+	$data['order_id']	= $order_id;
+	$data['amount']		= $amount;
+	
+	return $this->callApi('entryTranSbContinuance', $data);
+  }
+  
+  /**
+   * ExecTranSbContinuance
+   * 
+   * @Input parameters
+   *
+   * Access ID (取引ID)
+   * --AccessID string(32) not null
+   *
+   * Access Pass (取引パスワード)
+   * --AccessPass string(32) not null
+   *
+   * Client Field 1 (加盟店自由項目1)
+   * --ClientField1 string(100) null
+   *
+   * Client Field 2 (加盟店自由項目2)
+   * --ClientField2 string(100) null
+   *
+   * Client Field 3 (加盟店自由項目3)
+   * --ClientField3 string(100) null
+   * 
+   * Ret URL (決済結果戻しURL)
+   * --RetURL string(2048) not null
+   *
+   * Payment Term Sec (支払開始期限秒)
+   * --PaymentTermSec integer(5) null
+   *   default:120
+   *   max:86400 (1day)
+   *
+   * Charge Day (課金基準日)
+   * --ChargeDay string(2) not null
+   *   only 10, 15, 20, 25, 31
+   *
+   * First Month Free Flag (初月無料フラグ)
+   * --FirstMonthFreeFlag string(1) not null
+   *   0:課金する
+   *   1:課金しない
+   **/
+  public function execTranSbContinuance($access_id, $access_pass, $order_id, $ret_url, $charge_day, $first_month_free_flag){
+	if (!is_array($data)) {
+      $data = array();
+    }
+	$data['access_id']				= $access_id;
+	$data['access_pass']			= $access_pass;
+	$data['order_id']				= $order_id;
+	$data['ret_url']				= $ret_url;
+	$data['charge_day']				= $charge_day;
+	$data['first_month_free_flag']	= $first_month_free_flag;
+	
+	return $this->callApi('execTranSbContinuance', $data);
+  }
+  
+  /**
+   * SbContinuanceChargeCancel
+   * 
+   * @Input parameters
+   *
+   * Access ID (取引ID)
+   * --AccessID string(32) not null
+   *
+   * Access Pass (取引パスワード)
+   * --AccessPass string(32) not null
+   *
+   * Order ID (オーダーID)
+   * --OrderID string(27) not null
+   *
+   * Continuance Month (課金月)
+   * --ContinuanceMonth string(6) not null
+   **/
+  public function sbContinuanceChargeCancel($access_id, $access_pass, $order_id, $continuance_month){
+	if (!is_array($data)) {
+      $data = array();
+    }
+	$data['access_id']			= $access_id;
+	$data['access_pass']		= $access_pass;
+	$data['order_id']			= $order_id;
+	$data['continuance_month']	= $continuance_month;
+	
+	return $this->callApi('sbContinuanceChargeCancel', $data);
+  }
+  
+  /**
+   * SbContinuanceCancel
+   * 
+   * @Input parameters
+   *
+   * Access ID (取引ID)
+   * --AccessID string(32) not null
+   *
+   * Access Pass (取引パスワード)
+   * --AccessPass string(32) not null
+   *
+   * Order ID (オーダーID)
+   * --OrderID string(27) not null
+   **/
+  public function sbContinuanceCancel($access_id, $access_pass, $order_id){
+	if (!is_array($data)) {
+      $data = array();
+    }
+	$data['access_id']			= $access_id;
+	$data['access_pass']		= $access_pass;
+	$data['order_id']			= $order_id;
+	
+	return $this->callApi('sbContinuanceCancel', $data);
+  }
 }
