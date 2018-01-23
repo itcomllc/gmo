@@ -1067,6 +1067,7 @@ class Api {
 	  $errors[] = [
 	    'code' => $codes[$i],
 		'info' => $infos[$i],
+		];
 	}
 	
 	return $errors;
