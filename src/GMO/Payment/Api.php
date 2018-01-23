@@ -1056,8 +1056,8 @@ class Api {
   }
   
   protected function getErrors($result) {
-	$infos		= explode('|', $result['ErrInfo']);
-	$codes		= explode('|', $result['ErrCode']);
+	$infos		= explode('|', $result['result']['ErrInfo']);
+	$codes		= explode('|', $result['result']['ErrCode']);
 	$infoCount	= count($infos);
 	$codeCount	= count($codes);
 	$count		= ($infoCount<$codeCount)?$infoCount:$codeCount;
