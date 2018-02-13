@@ -7,9 +7,9 @@ class GmoException extends \Exception
 {
     protected $info = null;
 	
-	public function __construct($error, Exception $previous = null){
-		$this->info	= empty($error['info'])?null:$error['info'];
-		$code		= empty($error['code'])?0:substr($error['code'], 1);
+	public function __construct($error, \Exception $previous = null){
+		$this->info	= empty($error['ErrInfo'])?null:$error['ErrInfo'];
+		$code		= empty($error['ErrCode'])?0:substr($error['ErrCode'], 1);
 		$message = Consts::getErrorMessage($this->info);
 		
 		parent::__construct($message, $code, $previous);

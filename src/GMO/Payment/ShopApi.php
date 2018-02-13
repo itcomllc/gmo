@@ -3583,7 +3583,7 @@ class ShopApi extends Api {
    *   0:課金する
    *   1:課金しない
    **/
-  public function execTranSbContinuance($access_id, $access_pass, $order_id, $ret_url, $charge_day, $first_month_free_flag){
+  public function execTranSbContinuance($access_id, $access_pass, $order_id, $ret_url, $charge_day, $first_month_free_flag, $data = array()){
 	if (!is_array($data)) {
       $data = array();
     }

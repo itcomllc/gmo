@@ -1056,18 +1056,22 @@ class Api {
   }
   
   protected function getErrors($result) {
+	if(empty($result['result']['ErrInfo']) || empty($result['result']['ErrCode'])){
+	  return $result['result'];
+	}
+	
+	$errors = array();
 	$infos		= explode('|', $result['result']['ErrInfo']);
 	$codes		= explode('|', $result['result']['ErrCode']);
 	$infoCount	= count($infos);
 	$codeCount	= count($codes);
 	$count		= ($infoCount<$codeCount)?$infoCount:$codeCount;
-	
-	$errors = array();
+
 	for ($i=0; $i<$count; $i++){
-	  $errors[] = [
-	    'code' => $codes[$i],
-		'info' => $infos[$i],
-		];
+	$errors[] = [
+	  'ErrCode' => $codes[$i],
+	  'ErrInfo' => $infos[$i],
+	];
 	}
 	
 	return $errors;
