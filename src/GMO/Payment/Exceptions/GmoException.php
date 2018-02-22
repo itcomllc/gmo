@@ -9,7 +9,8 @@ class GmoException extends \Exception
 	
 	public function __construct($error, \Exception $previous = null){
 		$this->info	= empty($error['ErrInfo'])?null:$error['ErrInfo'];
-		$code		= empty($error['ErrCode'])?0:substr($error['ErrCode'], 1);
+		$code		= preg_replace('/[^0-9]/', '', $error['ErrCode']);
+		$code		= empty($code)?0:$code;
 		$message = Consts::getErrorMessage($this->info);
 		
 		parent::__construct($message, $code, $previous);
