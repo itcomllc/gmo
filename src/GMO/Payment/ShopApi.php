@@ -3614,7 +3614,7 @@ class ShopApi extends Api {
    * Continuance Month (課金月)
    * --ContinuanceMonth string(6) not null
    **/
-  public function sbContinuanceChargeCancel($access_id, $access_pass, $order_id, $continuance_month){
+  public function sbContinuanceChargeCancel($access_id, $access_pass, $order_id, $continuance_month, $data = array()){
 	if (!is_array($data)) {
       $data = array();
     }
@@ -3640,7 +3640,7 @@ class ShopApi extends Api {
    * Order ID (オーダーID)
    * --OrderID string(27) not null
    **/
-  public function sbContinuanceCancel($access_id, $access_pass, $order_id){
+  public function sbContinuanceCancel($access_id, $access_pass, $order_id, $data = array()){
 	if (!is_array($data)) {
       $data = array();
     }
