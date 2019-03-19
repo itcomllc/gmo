@@ -139,7 +139,10 @@ class Api {
     'searchTradeMulti'              => 'SearchTradeMulti.idPass',
 
     'entryTranVirtualaccount'       => 'EntryTranVirtualaccount.idPass',
-    'execTranVirtualaccount'        => 'ExecTranVirtualaccount.idPass'
+    'execTranVirtualaccount'        => 'ExecTranVirtualaccount.idPass',
+
+    'bankAccountEntry'        => 'BankAccountEntry.idPass'
+
   );
 
   /**
@@ -606,7 +609,35 @@ class Api {
     'trade_client_mailaddress' => array(
       'key' => 'TradeClientMailaddress',
       'max-length' => 256
-    )
+    ),
+    'bank_code' => array(
+      'key' => 'BankCode',
+      'max-length' => 4
+    ),
+    'branch_code' => array(
+      'key' => 'BranchCode',
+      'max-length' => 3
+    ),
+    'account_type' => array(
+      'key' => 'AccountType',
+      'max-length' => 1
+    ),
+    'account_number' => array(
+      'key' => 'AccountNumber',
+      'max-length' => 7
+    ),
+    'account_name' => array(
+      'key' => 'AccountName',
+      'max-length' => 60
+    ),
+    'account_name_kanji' => array(
+      'key' => 'AccountNameKanji',
+      'max-length' => 60
+    ),
+    'consumer_device' => array(
+      'key' => 'ConsumerDevice',
+      'max-length' => 2
+    ),
   );
 
   /**

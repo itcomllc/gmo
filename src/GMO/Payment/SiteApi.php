@@ -37,6 +37,23 @@ class SiteApi extends Api {
     parent::__construct($host, $params);
   }
 
+
+  public function bankAccountEntry ($member_id,$create_member,$ret_url,$bank_code,$branch_code,$account_type,$account_number,$account_name,$account_name_kanji,$consumer_device) {
+    $data = array(
+      'member_id'   => $member_id,
+      'create_member'   => $create_member,
+      'ret_url'   => $ret_url,
+      'bank_code'   => $bank_code,
+      'branch_code'   => $branch_code,
+      'account_type'   => $account_type,
+      'account_number'   => $account_number,
+      'account_name'   => $account_name,
+      'account_name_kanji'   => $account_name_kanji,
+      'consumer_device'   => $consumer_device,
+    );
+    return $this->callApi('bankAccountEntry', $data);
+  }
+
   /**
    * Register the member information in the specified site.
    *
