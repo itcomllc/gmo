@@ -38,7 +38,7 @@ class SiteApi extends Api {
   }
 
 
-  public function bankAccountEntry ($member_id,$create_member,$ret_url,$bank_code,$branch_code,$account_type,$account_number,$account_name,$account_name_kanji,$consumer_device) {
+  public function bankAccountEntry ($member_id,$create_member,$ret_url,$bank_code,$branch_code,$account_type,$account_number,$account_name,$consumer_device) {
     $data = array(
       'member_id'   => $member_id,
       'create_member'   => $create_member,
@@ -48,7 +48,6 @@ class SiteApi extends Api {
       'account_type'   => $account_type,
       'account_number'   => $account_number,
       'account_name'   => $account_name,
-      'account_name_kanji'   => $account_name_kanji,
       'consumer_device'   => $consumer_device,
     );
     return $this->callApi('bankAccountEntry', $data);
