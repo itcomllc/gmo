@@ -53,6 +53,13 @@ class SiteApi extends Api {
     return $this->callApi('bankAccountEntry', $data);
   }
 
+  public function bankAccountTranResult ($tran_id) {
+    $data = array(
+      'tran_id'   => $tran_id,
+    );
+    return $this->callApi('bankAccountTranResult', $data);
+  }
+
   /**
    * Register the member information in the specified site.
    *
