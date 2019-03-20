@@ -628,7 +628,8 @@ class Api {
     ),
     'account_name' => array(
       'key' => 'AccountName',
-      'max-length' => 60
+      'max-length' => 60,
+      'encode' => TRUE
     ),
     'account_name_kanji' => array(
       'key' => 'AccountNameKanji',
