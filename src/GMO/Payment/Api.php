@@ -702,7 +702,8 @@ class Api {
     'TransactionId'        => 'transaction_id',
     'TradeDays'            => 'trade_days',
     'TradeClientName'      => 'trade_client_name',
-    'TradeClientMailaddress'=> 'trade_client_mailaddress'
+    'TradeClientMailaddress'=> 'trade_client_mailaddress',
+    'StartUrl'              => 'start_url'
   );
 
   /**
