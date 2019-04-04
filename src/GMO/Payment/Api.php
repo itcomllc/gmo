@@ -704,7 +704,14 @@ class Api {
     'TradeDays'            => 'trade_days',
     'TradeClientName'      => 'trade_client_name',
     'TradeClientMailaddress'=> 'trade_client_mailaddress',
-    'StartUrl'              => 'start_url'
+    'StartUrl'              => 'start_url',
+
+    'BankCode'              => 'bank_code',
+    'BranchCode'              => 'branch_code',
+    'AccountType'              => 'account_type',
+    'AccountNumber'              => 'account_number',
+    'AccountName'              => 'account_name',
+    'AccountIdentification'              => 'account_identification'
   );
 
   /**
