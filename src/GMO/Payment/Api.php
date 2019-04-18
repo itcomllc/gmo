@@ -913,7 +913,7 @@ class Api {
    * Process curl response before return callback.
    */
   public static function processResponse($response) {
-    // mb_convert_encoding($value, 'UTF-8', 'SJIS');
+    $response = str_replace('+','%2B',$response);
     parse_str($response, $data);
     // API error or success.
     $success = isset($data['ErrCode']) ? FALSE : TRUE;
