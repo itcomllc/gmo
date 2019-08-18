@@ -141,8 +141,12 @@ class Api {
     'entryTranVirtualaccount'       => 'EntryTranVirtualaccount.idPass',
     'execTranVirtualaccount'        => 'ExecTranVirtualaccount.idPass',
 
-    'bankAccountEntry'        => 'BankAccountEntry.idPass',
-    'bankAccountTranResult'        => 'BankAccountTranResult.idPass'
+    'bankAccountEntry'             => 'BankAccountEntry.idPass',
+    'bankAccountTranResult'        => 'BankAccountTranResult.idPass',
+
+    'entryTranBankAccount'          => 'EntryTranBankaccount.idPass',
+    'execTranBankAccount'           => 'ExecTranBankaccount.idPass',
+    'bankAccountCancel'             => 'BankaccountCancel.idPass',
 
   );
 
