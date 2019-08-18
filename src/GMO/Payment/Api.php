@@ -711,11 +711,12 @@ class Api {
     'StartUrl'              => 'start_url',
 
     'BankCode'              => 'bank_code',
-    'BranchCode'              => 'branch_code',
-    'AccountType'              => 'account_type',
-    'AccountNumber'              => 'account_number',
-    'AccountName'              => 'account_name',
-    'AccountIdentification'              => 'account_identification'
+    'BranchCode'           => 'branch_code',
+    'AccountType'          => 'account_type',
+    'AccountNumber'        => 'account_number',
+    'AccountName'          => 'account_name',
+    'AccountIdentification'=> 'account_identification',
+    'BaResultcode'         => 'ba_result_code',
   );
 
   /**
