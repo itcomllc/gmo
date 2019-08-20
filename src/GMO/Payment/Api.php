@@ -644,6 +644,10 @@ class Api {
       'key' => 'ConsumerDevice',
       'max-length' => 2
     ),
+    'target_date' => array(
+      'key' => 'TargetDate',
+      'max-length' => 8
+    ),
   );
 
   /**
