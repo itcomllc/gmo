@@ -175,7 +175,10 @@ class Api
     'entryTranGANB'                 => 'EntryTranGANB.idPass',
     'execTranGANB'                  => 'ExecTranGANB.idPass',
     'ganbCancel'                    => 'CancelTranGANB.idPass',
-    'ganbInquiry'                   => 'InquiryTransferGANB.idPass'
+    'ganbInquiry'                   => 'InquiryTransferGANB.idPass',
+    // 20201209 追加
+    'registerRecurringCredit'       => 'RegisterRecurringCredit.idPass',
+    'unregisterRecurring'           => 'UnregisterRecurring.idPass'
   );
 
   /**
@@ -674,7 +677,17 @@ class Api
     'token_type'  => array(
       'key' => 'TokenType',
       'max-length'  => 1
-    )
+    ),
+    'recurring_id' => array(
+      'key' => 'RecurringID',
+      'max-length'  => 1
+    ),
+    'charge_day' => array(
+      'key' => 'ChargeDay',
+    ),
+    'regist_type' => array(
+      'key' => 'RegistType',
+    ),
   );
 
   /**
@@ -796,7 +809,10 @@ class Api
     'VaInSummary'          => 'va_summary',
     'VaReserveID'          => 'va_reserve_id',
     'VaTradeCode'          => 'va_trade_code',
-    'ReceiptUrl'           => 'receipt_url'
+    'ReceiptUrl'           => 'receipt_url',
+    'RecurringID'          => 'recurring_id',
+    'charge_day'           => 'ChargeDay',
+    'regist_type'          => 'RegistType',
   );
 
   /**

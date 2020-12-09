@@ -363,4 +363,21 @@ class ShopAndSiteApi extends Api {
     return $this->callApi('execTranAuContinuance', $data);
   }
 
+  public function registerRecurringCredit($recurringID, $amount, $chargeDay, $registType, $data = array()) {
+    if (!is_array($data)) {
+      $data = array();
+    }
+    $data['recurring_id']  = $recurringID;
+    $data['amount']        = $amount;
+    $data['charge_day']    = $chargeDay;
+    $data['regist_type']   = $registType;
+    return $this->callApi('registerRecurringCredit', $data);
+  }
+
+  public function unregisterRecurring($recurringID) {
+    $data = [];
+    $data['recurring_id']  = $recurringID;
+    return $this->callApi('unregisterRecurring', $data);
+  }
+
 }
