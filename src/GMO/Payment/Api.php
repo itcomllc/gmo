@@ -175,7 +175,13 @@ class Api
     'entryTranGANB'                 => 'EntryTranGANB.idPass',
     'execTranGANB'                  => 'ExecTranGANB.idPass',
     'ganbCancel'                    => 'CancelTranGANB.idPass',
-    'ganbInquiry'                   => 'InquiryTransferGANB.idPass'
+    'ganbInquiry'                   => 'InquiryTransferGANB.idPass',
+
+    'entryTranPaypay'               => 'EntryTranPaypay.idPass',
+    'execTranPaypay'                => 'ExecTranPaypay.idPass',
+    'paypayStart'                   => 'PaypayStart.idPass',
+    'paypaySales'                   => 'PaypaySales.idPass',
+    'paypayCancelReturn'            => 'PaypayCancelReturn.idPass',
   );
 
   /**
