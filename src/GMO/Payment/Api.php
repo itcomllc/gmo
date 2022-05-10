@@ -684,6 +684,10 @@ class Api
       'key' => 'TokenType',
       'max-length'  => 1
     ),
+    'valid_flag' => array(
+      'key' => 'ValidFlag',
+      'allow' => array(0, 1),
+    ),
     'recurring_id' => array(
       'key' => 'RecurringID',
       'max-length'  => 1
