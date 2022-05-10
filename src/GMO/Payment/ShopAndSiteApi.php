@@ -29,17 +29,19 @@ namespace GMO\Payment;
  *   It will be return only one or multiple records.
  *   Multiple records joined with '|' whatever success or failed.
  */
-class ShopAndSiteApi extends Api {
+class ShopAndSiteApi extends Api
+{
 
   /**
    * Object constructor.
    */
-  public function __construct($host, $shop_id, $shop_pass, $site_id, $site_pass, $params = array()) {
-    $params['shop_id']   = $shop_id;
-    $params['shop_pass'] = $shop_pass;
-    $params['site_id']   = $site_id;
-    $params['site_pass'] = $site_pass;
-    parent::__construct($host, $params);
+  public function __construct($params = array())
+  {
+    $params['shop_id']   = config('gmo.shop.id');
+    $params['shop_pass'] = config('gmo.shop.password');
+    $params['site_id']   = config('gmo.site.id');
+    $params['site_pass'] = config('gmo.site.password');
+    parent::__construct($params);
   }
 
   /**
@@ -85,7 +87,8 @@ class ShopAndSiteApi extends Api {
    *   Destination code when performing a validity check.
    *   有効性チェックを行ったときの仕向先 コード
    */
-  public function tradedCard($order_id, $member_id, $data = array()) {
+  public function tradedCard($order_id, $member_id, $data = array())
+  {
     if (!is_array($data)) {
       $data = array();
     }
@@ -200,7 +203,8 @@ class ShopAndSiteApi extends Api {
    * --StartLimitDate string(14)
    *   Format: yyyyMMddHHmmss
    */
-  public function execTranAu($access_id, $access_pass, $order_id, $commodity, $ret_url, $service_name, $service_tel, $data = array()) {
+  public function execTranAu($access_id, $access_pass, $order_id, $commodity, $ret_url, $service_name, $service_tel, $data = array())
+  {
     if (!is_array($data)) {
       $data = array();
     }
@@ -346,7 +350,8 @@ class ShopAndSiteApi extends Api {
    * --StartLimitDate string(14)
    *   Format: yyyyMMddHHmmss
    */
-  public function execTranAuContinuance($access_id, $access_pass, $order_id, $commodity, $account_timing_kbn, $account_timing, $first_account_date, $ret_url, $service_name, $service_tel, $data = array()) {
+  public function execTranAuContinuance($access_id, $access_pass, $order_id, $commodity, $account_timing_kbn, $account_timing, $first_account_date, $ret_url, $service_name, $service_tel, $data = array())
+  {
     if (!is_array($data)) {
       $data = array();
     }
@@ -363,21 +368,163 @@ class ShopAndSiteApi extends Api {
     return $this->callApi('execTranAuContinuance', $data);
   }
 
-  public function registerRecurringCredit($recurringID, $amount, $chargeDay, $registType, $data = array()) {
+  /**
+   * RegisterRecurringCredit
+   *
+   * @Input parameters
+   *
+   * Recurring ID (自動売上ID)
+   * --RecurringID string(15) not null.
+   *
+   * Amount (利用金額)
+   * --Amount integer(7) not null.
+   *
+   * Tax (税送料)
+   * --Tax integer(7) null.
+   *
+   * Charge day (課金日)
+   * --ChargeDay string(2) not null.
+   *   Set day between "01" to "31".
+   *   自動売上を行う日を01～31で指定します。
+   *   指定した日が月末日よりも大きい場合は、月末日に処理されます。
+   *
+   * Charge month (課金月)
+   * --ChargeMonth string(36) null.
+   *   Set day between "01" to "31".
+   *   自動売上を行う月を01～12で指定します。
+   *   "|"で区切ることにより複数の月を指定可能です。
+   *   省略した場合は、毎月として扱われます。
+   *
+   * Charge Start Date (課金開始日)
+   * --ChargeStartDate string(8) null.
+   *   Set format "yyyyMMdd".
+   *   自動売上処理を開始する日をyyyyMMdd形式で指定します。
+   *   ３ヶ月以内の日付を指定してください。
+   *   省略した場合は、翌日が指定されます。
+   *
+   * Charge Stop Date (課金停止日)
+   * --ChargeStopDate string(8) null.
+   *   Format: yyyyMMdd
+   *   自動売上処理を停止する日をyyyyMMdd形式で指定します。
+   *   省略した場合は、無期限として扱われます。
+   *
+   * Regist Type (売上対象種別)
+   * --RegistType string(1) not null.
+   *   売上対象の指定方法を以下のいずれかから選択します。
+   *   1:会員ID指定
+   *   2:カード番号指定
+   *   3:取引指定
+   *
+   * Member ID (会員ID)
+   * --MemberID string(60) conditional null.
+   *   MemberID is required if regist type is 1.
+   *
+   * Card No (カード番号)
+   * --CardNo string(60) conditional null.
+   *   CardNo is required if regist type is 2.
+   *
+   * Expire (有効期限)
+   * --Expire string(60) conditional null.
+   *   Format: YYMM
+   *   Expire is required if regist type is 2.
+   *
+   * Src order ID (オーダーID)
+   * --SrcOrderID string(27) conditional null.
+   *   SrcOrderID is required if regist type is 3.
+   *
+   * Client Field 1 (加盟店自由項目1)
+   * --ClientField1 string(100) null.
+   *
+   * Client Field 2 (加盟店自由項目2)
+   * --ClientField2 string(100) null.
+   *
+   * Client Field 3 (加盟店自由項目3)
+   * --ClientField3 string(100) null.
+   **/
+  public function registerRecurringCredit($recurring_id, $amount, $charge_day, $regist_type, $data = array())
+  {
     if (!is_array($data)) {
       $data = array();
     }
-    $data['recurring_id']  = $recurringID;
-    $data['amount']        = $amount;
-    $data['charge_day']    = $chargeDay;
-    $data['regist_type']   = $registType;
+    $data['recurring_id']  = $recurring_id;
+    $data['amount']      = $amount;
+    $data['charge_day']    = $charge_day;
+    $data['regist_type']  = $regist_type;
+
     return $this->callApi('registerRecurringCredit', $data);
   }
 
-  public function unregisterRecurring($recurringID) {
-    $data = [];
-    $data['recurring_id']  = $recurringID;
-    return $this->callApi('unregisterRecurring', $data);
-  }
+  /**
+   * RegisterRecurringAccounttrans
+   *
+   * @Input parameters
+   *
+   * Recurring ID (自動売上ID)
+   * --RecurringID string(15) not null.
+   *
+   * Amount (利用金額)
+   * --Amount integer(7) not null.
+   *
+   * Tax (税送料)
+   * --Tax integer(7) null.
+   *
+   * Charge month (課金月)
+   * --ChargeMonth string(36) null.
+   *   Set day between "01" to "31".
+   *   自動売上を行う月を01～12で指定します。
+   *   "|"で区切ることにより複数の月を指定可能です。
+   *   省略した場合は、毎月として扱われます。
+   *
+   * Charge Start Date (課金開始日)
+   * --ChargeStartDate string(8) null.
+   *   Set format "yyyyMMdd".
+   *   自動売上処理を開始する日をyyyyMMdd形式で指定します。
+   *   ３ヶ月以内の日付を指定してください。
+   *   省略した場合は、翌日が指定されます。
+   *
+   * Charge Stop Date (課金停止日)
+   * --ChargeStopDate string(8) null.
+   *   Format: yyyyMMdd
+   *   自動売上処理を停止する日をyyyyMMdd形式で指定します。
+   *   省略した場合は、無期限として扱われます。
+   *
+   * Member ID (会員ID)
+   * --MemberID string(60) not null.
+   *
+   * Print Str (通帳記載内容)
+   * --PrintStr string(15) null.
+   *   引き落とし時に、通帳に印字する内容
+   *   ※以下の文字が利用可能です。
+   *     ・ １バイト数字
+   *     ・ 一部※を除く半角カナ文字
+   *     ・ 半角濁点
+   *     ・ 半角半濁点
+   *     ・ ,.()/-
+   *     ※除外される半角カナ: ｦ ｧ ｨ ｩ ｪ ｫ ｬ ｭ ｮ ｯ
+   *   また、以下の埋込変数が使用可能です。
+   *   %Y : 課金年(西暦下2桁)に展開されます。
+   *   %M : 課金月(2桁)に展開されます。
+   *   %D : 課金日(2桁)に展開されます。
+   *
+   * Client Field 1 (加盟店自由項目1)
+   * --ClientField1 string(100) null.
+   *
+   * Client Field 2 (加盟店自由項目2)
+   * --ClientField2 string(100) null.
+   *
+   * Client Field 3 (加盟店自由項目3)
+   * --ClientField3 string(100) null.
+   **/
+  public function registerRecurringAccounttrans($recurring_id, $amount, $member_id, $print_str, $data = array())
+  {
+    if (!is_array($data)) {
+      $data = array();
+    }
+    $data['recurring_id']  = $recurring_id;
+    $data['amount']      = $amount;
+    $data['member_id']    = $member_id;
+    $data['print_str']    = $print_str;
 
+    return $this->callApi('registerRecurringAccounttrans', $data);
+  }
 }

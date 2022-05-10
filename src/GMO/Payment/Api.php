@@ -7,6 +7,8 @@
 
 namespace GMO\Payment;
 
+use GMO\Payment\Exceptions\GmoException;
+
 /**
  * Method : IKKATU(一括).
  */
@@ -128,6 +130,11 @@ class Api
     'sbStart'                       => 'SbStart.idPass',
     'sbCancel'                      => 'SbCancel.idPass',
     'sbSales'                       => 'SbSales.idPass',
+    'entryTranSbContinuance'    => 'EntryTranSbContinuance.idPass',
+    'execTranSbContinuance'      => 'ExecTranSbContinuance.idPass',
+    'sbContinuanceStart'      => 'SbContinuanceStart.idPass',
+    'sbContinuanceChargeCancel'    => 'SbContinuanceChargeCancel.idPass',
+    'sbContinuanceCancel'      => 'SbContinuanceCancel.idPass',
     'entryTranAuContinuance'        => 'EntryTranAuContinuance.idPass',
     'execTranAuContinuance'         => 'ExecTranAuContinuance.idPass',
     'auContinuanceStart'            => 'AuContinuanceStart.idPass',
@@ -182,9 +189,13 @@ class Api
     'paypayStart' => 'PaypayStart.idPass',
     'paypaySales' => 'PaypaySales.idPass',
     'paypayCancelReturn' => 'PaypayCancelReturn.idPass',
-    // 20201209 追加
-    'registerRecurringCredit'       => 'RegisterRecurringCredit.idPass',
-    'unregisterRecurring'           => 'UnregisterRecurring.idPass'
+
+    'registerRecurringCredit'    => 'RegisterRecurringCredit.idPass',
+    'registerRecurringAccounttrans'  => 'RegisterRecurringAccounttrans.idPass',
+    'unregisterRecurring'      => 'UnregisterRecurring.idPass',
+    'changeRecurring'        => 'ChangeRecurring.idPass',
+    'searchRecurring'        => 'SearchRecurring.idPass',
+    'searchRecurringResult'      => 'SearchRecurringResult.idPass',
   );
 
   /**
@@ -250,6 +261,22 @@ class Api
     'carry_info' => array(
       'key' => 'CarryInfo',
       'max-length' => 34,
+    ),
+    'charge_day' => array(
+      'key' => 'ChargeDay',
+      'length' => 2,
+    ),
+    'charge_month' => array(
+      'key' => 'ChargeMonth',
+      'max-length' => 36,
+    ),
+    'charge_start_date' => array(
+      'key' => 'ChargeStartDate',
+      'length' => 8,
+    ),
+    'charge_stop_date' => array(
+      'key' => 'ChargeStopDate',
+      'length' => 8,
     ),
     'client_field_1' => array(
       'key' => 'ClientField1',
@@ -453,6 +480,10 @@ class Api
       'max' => 86400,
       'integer' => TRUE,
     ),
+    'print_str' => array(
+      'key' => 'PrintStr',
+      'max-length' => 15,
+    ),
     'receipts_disp_1' => array(
       'key' => 'ReceiptsDisp1',
       'max-length' => 60,
@@ -505,9 +536,17 @@ class Api
       'key' => 'ReceiptsDisp13',
       'max-length' => 11,
     ),
+    'recurring_id' => array(
+      'key' => 'RecurringID',
+      'max-length' => 15
+    ),
     'redirect_url' => array(
       'key' => 'RedirectURL',
       'max-length' => 200,
+    ),
+    'regist_type' => array(
+      'key' => 'RegistType',
+      'length' => 1,
     ),
     'register_disp_1' => array(
       'key' => 'RegisterDisp1',
@@ -584,6 +623,10 @@ class Api
     'site_pass' => array(
       'key' => 'SitePass',
       'length' => 20,
+    ),
+    'src_order_id' => array(
+      'key' => 'SrcOrderID',
+      'max-length' => 27,
     ),
     'status' => array(
       'key' => 'Status',
@@ -823,6 +866,16 @@ class Api
     'RecurringID'          => 'recurring_id',
     'charge_day'           => 'ChargeDay',
     'regist_type'          => 'RegistType',
+    'ChargeDate'      => 'charge_date',
+    'ChargeDay'        => 'charge_day',
+    'ChargeErrCode'      => 'charge_err_code',
+    'ChargeErrInfo'      => 'charge_err_info',
+    'ChargeMonth'      => 'charge_month',
+    'ChargeStartDate'    => 'charge_start_date',
+    'ChargeStopDate'    => 'charge_stop_date',
+    'NextChargeDate'    => 'next_charge_date',
+    'PrintStr'        => 'print_str',
+    'RecurringID'         => 'recurring_id',
   );
 
   /**
@@ -905,9 +958,9 @@ class Api
   /**
    * Object constructor.
    */
-  public function __construct($host, $params = array())
+  public function __construct($params = array())
   {
-    $this->host = trim($host, '/');
+    $this->host = trim(config('gmo.host'), '/');
     // Set default parameters.
     if ($params && is_array($params)) {
       $this->defaultParams = $params;
@@ -1135,7 +1188,13 @@ class Api
     $uri = $this->getApiUrl();
     // Process parameters as GMO format.
     $params = $this->buildParams();
-    return $this->request($uri, $params);
+    $result = $this->request($uri, $params);
+    if (empty($result['success'])) {
+      // throw new GmoException($result['result']);
+      $errors = $this->getErrors($result);
+      throw $this->getException($errors);
+    }
+    return $result;
   }
 
   /**
@@ -1156,5 +1215,37 @@ class Api
       }
     }
     return $params;
+  }
+
+  protected function getErrors($result)
+  {
+    if (empty($result['result']['ErrInfo']) || empty($result['result']['ErrCode'])) {
+      return $result['result'];
+    }
+
+    $errors = array();
+    $infos    = explode('|', $result['result']['ErrInfo']);
+    $codes    = explode('|', $result['result']['ErrCode']);
+    $infoCount  = count($infos);
+    $codeCount  = count($codes);
+    $count    = ($infoCount < $codeCount) ? $infoCount : $codeCount;
+
+    for ($i = 0; $i < $count; $i++) {
+      $errors[] = [
+        'ErrCode' => $codes[$i],
+        'ErrInfo' => $infos[$i],
+      ];
+    }
+
+    return $errors;
+  }
+
+  protected function getException($errors)
+  {
+    if (empty($errors)) {
+      return null;
+    }
+    $error = array_shift($errors);
+    return new GmoException($error, $this->getException($errors));
   }
 }

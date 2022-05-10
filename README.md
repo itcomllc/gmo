@@ -7,7 +7,7 @@ Installation
 ------------
 
 ```bash
-composer require k1low/gmo-pg-php
+composer require arsaga-partners/gmo-pg-php
 ```
 
 Usage

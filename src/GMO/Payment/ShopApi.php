@@ -39,14 +39,14 @@ class ShopApi extends Api
   /**
    * Object constructor.
    */
-  public function __construct($host, $shop_id, $shop_pass, $params = array())
+  public function __construct($params = array())
   {
     if (!is_array($params)) {
       $params = array();
     }
-    $params['shop_id']   = $shop_id;
-    $params['shop_pass'] = $shop_pass;
-    parent::__construct($host, $params);
+    $params['shop_id']   = config('gmo.shop.id');
+    $params['shop_pass'] = config('gmo.shop.password');
+    parent::__construct($params);
   }
 
   /**
@@ -3513,12 +3513,12 @@ class ShopApi extends Api
 
   /**
    * Entry transaction of NetCash
-   * 
+   *
    * @Input parameters
-   * 
+   *
    * Version (バージョン)
    * --Version string(3) null.
-   * 
+   *
    * Order ID (オーダーID)
    * --OrderID string(27) not null.
    *
@@ -3538,7 +3538,7 @@ class ShopApi extends Api
    *
    * AccessPass
    * --AccessPass string(32)
-   * 
+   *
    */
 
   public function entryTranNetCash($order_id, $amount, $tax = 0, $data = array())
@@ -3568,28 +3568,28 @@ class ShopApi extends Api
    *
    * Ret URL (リダイレクト URL)
    * --RetURl string(256) not null.
-   * 
+   *
    * Client Field 1 (加盟店自由項目1)
    * -ClienField1 string(100) null.
-   * 
+   *
    * Client Field 2 (加盟店自由項目2)
    * -ClienField2 string(100) null.
-   * 
+   *
    * Client Field 3 (加盟店自由項目3)
    * -ClienField3 string(100) null.
    *
    * Net Cash Type (決済方法)
    * --NetCashPayType string(40) not null.
    *
-   * 
+   *
    * @Ouput parameters
-   * 
+   *
    * Acces ID (取引ID )
-   * --AccessID string(32) 
-   * 
+   * --AccessID string(32)
+   *
    * Token (トークン)
    * --Token string(256)
-   * 
+   *
    * Start Url (支払手続き開始 IF の URL)
    * --StartURL string(256)
    **/
@@ -3610,12 +3610,12 @@ class ShopApi extends Api
 
   /**
    * Entry transaction of RakutenId
-   * 
+   *
    * @Input parameters
-   * 
+   *
    * Version (バージョン)
    * --Version string(3) null.
-   * 
+   *
    * Order ID (オーダーID)
    * --OrderID string(27) not null.
    *
@@ -3626,7 +3626,7 @@ class ShopApi extends Api
    *     AUTH: provisional sales (仮売上).
    *     CAPTURE: immediate sales (即時売上).
    *     REGISTER: subcription (申込み（お客様への注文は行わずに随時決済に必要なサブスクリプション ID の発行を行います）)
-   *     
+   *
    * Amount
    * --Amount integer(8) not null.
    *
@@ -3643,7 +3643,7 @@ class ShopApi extends Api
    *
    * AccessPass
    * --AccessPass string(32)
-   * 
+   *
    */
 
   public function entryTranRakutenid($order_id, $amount, $job_cd = 'AUTH', $tax = 0, $data = array())
@@ -3660,12 +3660,12 @@ class ShopApi extends Api
 
   /**
    * Exec transaction RakutenId
-   * 
+   *
    * @Input parameters
    *
    * Version (バージョン)
    * --Version string(3) null.
-   * 
+   *
    * Access ID (取引 ID)
    * --AccessID string(32) not null.
    *
@@ -3674,43 +3674,43 @@ class ShopApi extends Api
    *
    * Order ID (オーダーID)
    * --OrderID string(27) not null.
-   * 
+   *
    * Client Field 1 (加盟店自由項目1)
    * --ClientField1 string(100) null.
-   * 
+   *
    * Client Field 2 (加盟店自由項目2)
    * --ClientField1 string(100) null.
-   * 
+   *
    * Client Field 3 (加盟店自由項目3)
    * --ClientField1 string(100) null.
-   * 
+   *
    * Item Id (商品 ID)
    * -- ItemId [ require if Job_CD = AUTH or CAPTURE ] string(100) not null.
-   *  
+   *
    * Item Sub Id (商品サブID)
    * -- ItemSubId string (77) not null.
-   * 
+   *
    * Item Name (商品名)
    * -- ItemName string(255) not null.
-   * 
+   *
    * Return Url (決済結果戻しURL)
    * -- RetUrl string(2048) not null.
-   * 
+   *
    * Error Return Url (処理NG時URL)
    * -- ErrorRcvURL string(2048) not null.
-   * 
+   *
    * Payment Term (支払開始期限秒)
    * -- PaymentTermSec number(5) null.
-   * 
+   *
    * Multi Item (複数商品(※2))
    * -- MultiItem string(30000) null.
-   * 
+   *
    * Subcription Type (サブスクリプションタイプ)
    * -- SubscriptionType string(10) null.
-   * 
+   *
    * Subcription Name (サブスクリプション名)
    * -- SubscriptionName [ require if Job_CD = REGISTER] string(200) null.
-   * 
+   *
    * Settlement Subscription Id (決済用サブスクリプションID)
    * -- SettlementSubscriptionId string(20) null.
    */
@@ -3729,34 +3729,34 @@ class ShopApi extends Api
   }
 
   /**
-   *  Rakutenid Sales 
-   * 
+   *  Rakutenid Sales
+   *
    * @Input parameters
-   * 
+   *
    * Version (バージョン)
    * -- Version string(3) null.
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32) not null.
-   * 
+   *
    * Access Pass (取引パスワード)
    * -- AccessPass string(32) not null.
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27) not null.
-   * 
+   *
    * @Output parameters
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27)
-   * 
+   *
    * Status (現状態)
    * -- Status string()
    * ・REQSALES：実売上受付け
-   * 
+   *
    * Amount (利用金額)
    * -- Amount number(8)
-   * 
+   *
    * Tax (税送料)
    * -- Tax number(8)
    */
@@ -3772,34 +3772,34 @@ class ShopApi extends Api
   }
 
   /**
-   *  Rakutenid Cancel 
-   * 
+   *  Rakutenid Cancel
+   *
    * @Input parameters
-   * 
+   *
    * Version (バージョン)
    * -- Version string(3) null.
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32) not null.
-   * 
+   *
    * Access Pass (取引パスワード)
    * -- AccessPass string(32) not null.
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27) not null.
-   * 
+   *
    * @Output parameters
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27)
-   * 
+   *
    * Status (現状態)
    * -- Status string()
    * ・REQCANCEL：注文キャンセル受付け
-   * 
+   *
    * Amount (利用金額)
    * -- Amount number(8)
-   * 
+   *
    * Tax (税送料)
    * -- Tax number(8)
    */
@@ -3816,47 +3816,47 @@ class ShopApi extends Api
   }
 
   /**
-   *  Rakutenid Change 
-   * 
+   *  Rakutenid Change
+   *
    * @Input parameters
-   * 
+   *
    * Version (バージョン)
    * -- Version string(3) null.
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32) not null.
-   * 
+   *
    * Access Pass (取引パスワード)
    * -- AccessPass string(32) not null.
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27) not null.
-   * 
+   *
    * Amount (変更利用金額)
    * -- Amount number(8) not null.
-   * 
+   *
    * Tax (変更税送料)
    * -- Tax number(8) null.
-   * 
+   *
    * Use Coupon (クーポン使用フラグ)
    * -- UseCoupon string(1)
-   * 
+   *
    * Multi Item (複数商品)
    * -- MultiItem string(30000) null.
-   * 
+   *
    * @Output parameters
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27)
-   * 
+   *
    * Status (現状態)
    * -- Status string()
-   * 
+   *
    * ・REQCHANGE：金額変更受付け
-   * 
+   *
    * Amount (利用金額)
    * -- Amount number(8)
-   * 
+   *
    * Tax (税送料)
    * -- Tax number(8)
    */
@@ -3877,30 +3877,30 @@ class ShopApi extends Api
 
   /**
    * Entry transaction of Linepay
-   * 
+   *
    * @Input Parameters
-   * 
+   *
    * Version (バージョン)
    * --Version string(3) null.
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27) not null.
-   * 
+   *
    * JobCd (処理区分)
    * -- JobCd string(-) not null
-   * 
+   *
    *  Allowed values :
    *    AUTH：Temporary Sales 仮売上
    *    CAPTURE：Instant Sales 即時売上
-   * 
+   *
    * @Output Parameters
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32)
-   * 
+   *
    * AccessPass (取引パスワード)
    * -- AccessPass string(32)
-   * 
+   *
    */
 
   public function entryTranLinepay($order_id, $amount, $job_cd = 'AUTH', $data = array())
@@ -3916,54 +3916,54 @@ class ShopApi extends Api
 
   /**
    * Exec transaction of Linepay
-   * 
+   *
    * @Input Parameters
-   * 
+   *
    * Version (バージョン)
    * --Version string(3) null.
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32) not null.
-   * 
+   *
    * Access Pass (取引パスワード)
    * -- AccessPass string(32) not null.
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27) not null.
-   * 
+   *
    * Client Field 1 (加盟店自由項目1)
    * -- ClientField1 string(100) null.
-   * 
+   *
    * Client Field 2 (加盟店自由項目2)
    * -- ClientField2 string(100) null.
-   * 
+   *
    * Client Field 3 (加盟店自由項目3)
    * -- ClientField3 string(100) null.
-   * 
+   *
    * Client Field Flag (加盟店自由項目返却フラグ)
    * -- ClientFieldFlag string(1) null.
-   * 
+   *
    *    Allowed values :
    *      以下のいずれかを設定します。
    *      0：Do no return 返却しない(デフォルト)
    *      1：Return 返却する
-   * 
+   *
    * Return Url (決済結果戻しURL)
    * -- RetURL string(2048) not null.
-   * 
+   *
    * Error Return Url (処理NG時URL)
    * -- ErrorRcvURL string(100) not null.
-   * 
+   *
    * Product Name (商品名)
    * -- ProductName string(4000) not null.
-   * 
+   *
    * Product Image URL (商品画像URL)
    * -- ProductImageUrl string(500) null.
-   * 
+   *
    * Lang Cd (言語コード)
    * -- LangCd string (10) null.
-   * 
-   *  Allowed values : 
+   *
+   *  Allowed values :
    *    決済待ち画面の言語コードを設定しま
    *    す。
    *     ja：日本語
@@ -3975,18 +3975,18 @@ class ShopApi extends Api
    *     未指定・または対応していない言語コー
    *     ドが指定された場合は、英語(en)をデフ
    *     ォルトで使用します。
-   * 
+   *
    * @Output parameters
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32)
-   * 
+   *
    * Token (トークン)
    * -- Token string(256)
-   * 
+   *
    * Start URL (支払手続き開始 IF のURL)
    * -- StartURL string(256)
-   * 
+   *
    */
 
   public function execTranLinepay($access_id, $access_pass, $order_id, $ret_url, $error_url, $product_name, $data = array())
@@ -4006,35 +4006,35 @@ class ShopApi extends Api
 
   /**
    * Line Sales
-   * 
+   *
    * @Input Parameters
-   * 
+   *
    * Version (バージョン)
    * -- Version string(3) null.
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32) not null.
-   * 
+   *
    * Access Pass (取引パスワード)
    * -- AccessPass string(32) not null.
-   * 
+   *
    * Amount (利用金額)
    * -- Amount integer(8) not null.
-   * 
+   *
    * Tax (税送料)
    * -- Tax integer(7) null.
-   * 
+   *
    * @Output parameters
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32)
-   * 
+   *
    * Status (現状態)
    * -- Status string()
-   * 
+   *
    * Amount (利用金額)
    * -- Amount number(8)
-   * 
+   *
    * Tax (税送料)
    * -- Tax number(7)
    */
@@ -4052,43 +4052,43 @@ class ShopApi extends Api
 
   /**
    * Line Cancel
-   * 
+   *
    * @Input Parameters
-   * 
+   *
    * Version (バージョン)
    * -- Version string(3) null.
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32) not null.
-   * 
+   *
    * Access Pass (取引パスワード)
    * -- AccessPass string(32) not null.
-   * 
+   *
    * Cancel Amount (キャンセル金額)
    * -- CancelAmount number(8) not null.
-   * 
+   *
    * Cancel Tax (キャンセル税送料)
    * -- CancelTax number(7) null.
-   * 
+   *
    * @Output parameters
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32)
-   * 
+   *
    * Status (現状態)
    * -- Status string()
    *・CANCEL：キャンセル
    *・RETURN：返品
-   * 
+   *
    * Amount (利用金額)
    * -- Amount number(8)
-   * 
+   *
    * Tax (税送料)
    * -- Tax number(7)
-   * 
+   *
    * Cancel Amount (キャンセル金額)
    * -- CancelAmount number(8)
-   * 
+   *
    * Cancel Tax (キャンセル税送料)
    * -- CancelTax number(7)
    */
@@ -4107,37 +4107,37 @@ class ShopApi extends Api
 
   /**
    * Entry transaction of NetiD
-   * 
+   *
    * @Input parameters
-   * 
+   *
    * Version (バージョン)
    * -- Version string(3) null.
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27) not null.
-   * 
+   *
    * JobCd (処理区分)
    * -- JobCd string(-)
-   * 
+   *
    *  Allowed values :
    *    以下のいずれかを設定します。
    *    CAPTURE：Instant Sales 即時売上
    *    AUTH：Temporary Sales 仮売上
-   * 
+   *
    * Amount (利用金額)
    * -- Amount number(7) not null.
-   * 
+   *
    * Tax (税送料)
    * -- Tax number(7) null.
-   * 
+   *
    * Return URL (戻り先URL)
    * -- RetURL string(256) null.
-   * 
+   *
    * @Ouput parameters
-   * 
+   *
    * AccessID (取引ID)
    * -- AccessID string(32)
-   * 
+   *
    * AccessPass (取引パスワード)
    * -- AccessPass string(32)
    */
@@ -4155,67 +4155,67 @@ class ShopApi extends Api
 
   /**
    * Exec transaction of NetiD
-   * 
+   *
    * @Input parameters
-   * 
+   *
    * Version (バージョン)
    * -- Version string(3) null.
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32) not null.
-   * 
+   *
    * Access Pass (取引パスワード)
    * -- AccessPass string(32) not null.
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27) not null.
-   * 
+   *
    * Customer Name (氏名)
    * -- CustomerName string(40) not null.
-   * 
+   *
    * Payment Term Day (支払期限日数)
    * -- PaymentTermDay string(40) null.
-   * 
+   *
    * Mail Address (メールアドレス)
    * -- MailAddres string(256) null.
-   * 
+   *
    * Shop Mail Address (加盟店メールアドレス)
    * -- ShopMailAddress string(256) null.
-   * 
+   *
    * Item Name (商品・サービス名)
    * -- ItemName string(40) not null.
-   * 
+   *
    * Client Field 1 (加盟店自由項目1)
    * -- ClientField1 string(100) null.
-   * 
+   *
    * Client Field 2 (加盟店自由項目2)
    * -- ClientField2 string(100) null.
-   * 
+   *
    * Client Field 3 (加盟店自由項目3)
    * -- ClientField3 string(100) null.
-   * 
+   *
    * Client Field Flag (加盟店自由項目返却フラグ)
    * -- ClientFieldFlag string(1) null.
-   * 
-   * Allowed values : 
+   *
+   * Allowed values :
    *  以下のいずれかを設定します。
    *     0：do not return 返却しない(デフォルト)
    *     1：return 返却する
-   * 
+   *
    * @Ouput parameters
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27)
-   * 
+   *
    * Payment Term (支払期限日時)
    * -- PaymentTerm string(14)
-   * 
+   *
    * Tran Date (決済日付)
    * -- TranDate string(14)
-   * 
+   *
    * Check String (MD5ハッシュ)
    * -- CheckString string(32)
-   * 
+   *
    */
 
   public function execTranNetid($access_id, $access_pass, $order_id, $customer_name, $item_name, $data = array())
@@ -4233,33 +4233,33 @@ class ShopApi extends Api
   }
 
   /**
-   *  NetiD Sales 
-   * 
+   *  NetiD Sales
+   *
    * @Input parameters
-   * 
+   *
    * Version (バージョン)
    * -- Version string(3) null.
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32) not null.
-   * 
+   *
    * Access Pass (取引パスワード)
    * -- AccessPass string(32) not null.
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27) not null.
-   * 
+   *
    * Amount (利用金額)
    * -- Amount number(7) not null.
-   * 
+   *
    * Tax (税送料)
    * -- Tax number(7) not null.
-   * 
+   *
    * @Output parameters
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27)
-   * 
+   *
    * Forward (仕向先コード)
    * -- Forward string(7)
    */
@@ -4276,33 +4276,33 @@ class ShopApi extends Api
   }
 
   /**
-   *  NetiD Cancel 
-   * 
+   *  NetiD Cancel
+   *
    * @Input parameters
-   * 
+   *
    * Version (バージョン)
    * -- Version string(3) null.
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32) not null.
-   * 
+   *
    * Access Pass (取引パスワード)
    * -- AccessPass string(32) not null.
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27) not null.
-   * 
+   *
    * Amount (利用金額)
    * -- Amount number(7) not null.
-   * 
+   *
    * Tax (税送料)
    * -- Tax number(7) not null.
-   * 
+   *
    * @Output parameters
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27)
-   * 
+   *
    * Forward (仕向先コード)
    * -- Forward string(7)
    */
@@ -4321,33 +4321,33 @@ class ShopApi extends Api
 
 
   /**
-   *  NetiD Change 
-   * 
+   *  NetiD Change
+   *
    * @Input parameters
-   * 
+   *
    * Version (バージョン)
    * -- Version string(3) null.
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32) not null.
-   * 
+   *
    * Access Pass (取引パスワード)
    * -- AccessPass string(32) not null.
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27) not null.
-   * 
+   *
    * Amount (利用金額)
    * -- Amount number(7) not null.
-   * 
+   *
    * Tax (税送料)
    * -- Tax number(7) not null.
-   * 
+   *
    * @Output parameters
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27)
-   * 
+   *
    * Forward (仕向先コード)
    * -- Forward string(7)
    */
@@ -4364,23 +4364,23 @@ class ShopApi extends Api
 
   /**
    * Webmoney Refund Payment
-   * 
+   *
    * @Input parameters
-   * 
+   *
    * Access ID (取引ID)
    * -- AccessID string(32) not null.
-   * 
+   *
    * Access Pass (取引パスワード)
    * -- AccessPass string(32) not null.
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27) not null.
-   * 
+   *
    * @Output parameters
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27)
-   * 
+   *
    * Status (現状態 )
    * -- Status string(-)
    */
@@ -4396,38 +4396,38 @@ class ShopApi extends Api
     return $this->callApi('webmoneyRefund', $data);
   }
 
-  /** 
-   * 
+  /**
+   *
    * Entry transaction of Brand Token ( Apple Pay )
-   * 
+   *
    * @Input parameters
-   * 
+   *
    * JobCD (処理区分)
    * - JobCd string(-)
-   * 
+   *
    * Allowed value :
-   * 
+   *
    * 以下のいずれかを設定
    * CAPTURE：即時売上
    * AUTH：仮売上
-   * 
+   *
    * Item code (商品コード)
    * - ItemCode string(7)
-   * 
+   *
    * Amount (利用金額)
    * - Amount integer(7)
-   * 
+   *
    * Tax (税送料)
    * - Tax integer(7)
-   * 
+   *
    * @Output Parameter
-   * 
+   *
    * Access Id (取引 ID)
    * - AccessID string(32)
-   * 
+   *
    * Access Pass (取引パスワード)
    * - AccessPass string(32)
-   * 
+   *
    */
 
   public function entryTranApplePay($order_id, $job_cd, $amount, $data = array())
@@ -4443,94 +4443,94 @@ class ShopApi extends Api
 
   /**
    * Execute transaction brand token (apple pay)
-   * 
+   *
    * @Input parameter
-   * 
+   *
    * Access Id (取引パスワード)
    * - AccessID string(32)
-   * 
+   *
    * Access Pass (取引パスワード)
    * - AccessPass string(32)
-   * 
+   *
    * Order Id (オーダーID)
    * - OrderID string(27)
-   * 
+   *
    * Token type (トークン種別)
    * - TokenType string(8)
-   * 
+   *
    * Token (トークン)
    * - Token string(-)
-   * 
+   *
    * Site Id (サイト ID )
    * - Token string(13)
-   * 
+   *
    * Site Pass (サイトパスワード)
    * - SitePass string(10)
-   * 
+   *
    * Member Id (会員 ID )
    * - MemberID string(60)
-   * 
+   *
    * Seq Mode (連番モード)
    * - SeqMode string(1)
-   * 
+   *
    * Allowed value :
-   * 
+   *
    * 0:論理(省略値)
    * 1:物理
    * 利用するトークンの連番指定モード。
-   * 
+   *
    * Token Seq (トークン連番)
    * - TokenSeq string(4)
-   * 
+   *
    * Client field 1 (加盟店自由項目 1)
    * - ClienField1 string(100)
-   * 
+   *
    * Client field 2 (加盟店自由項目 2)
    * - ClientField2 string(100)
-   * 
+   *
    * Client field 3 (加盟店自由項目 3)
    * - ClientField3 string(100)
-   * 
+   *
    * @Output parameter
-   * 
+   *
    * Status (取引状態)
    * - Status string(16)
-   * 
+   *
    * value :
    * 処理時は以下のステータスが返却され
    *  ます。
    *  “AUTH”：仮売上
    *  “CAPTURE”：即時売上
    *  “UNPROCESSED”：未決済（決済失敗）
-   * 
+   *
    * OrderId (オーダーID)
    * - OrderID string(27)
-   * 
+   *
    * Forward (仕向先コード)
    * - Forward string(7)
-   * 
+   *
    * Approve (承認番号)
    * - Approve string(7)
-   * 
+   *
    * Transaction Id (トランザクション ID)
    * - TranID string(28)
-   * 
+   *
    * Transaction Date (決済日付)
    * - TranDate string(14)
-   * 
+   *
    * value :
-   * 
+   *
    * yyyyMMddHHmmss 形式
-   * 
+   *
    * Client field 1 (加盟店自由項目1)
    * - ClientField1 string(100)
-   * 
+   *
    * Client field 2 (加盟店自由項目2)
    * - ClientField2 string(100)
-   * 
+   *
    * Client field 3 (加盟店自由項目3)
    * - ClientField3 string(100)
-   * 
+   *
    */
 
   public function execTranApplePay($access_id, $access_pass, $order_id, $data = array())
@@ -4546,42 +4546,42 @@ class ShopApi extends Api
     return $this->callApi('execTranApplePay', $data);
   }
 
-  /** 
+  /**
    * Cancel transaction apple pay
-   * 
+   *
    * @Input parameter
-   * 
+   *
    * Access id (取引 ID)
    * - AccessID string(32)
-   * 
+   *
    * Access pass (取引パスワード)
    * - AccessPass string(32)
-   * 
+   *
    * Order id (オーダーID)
    * - OrderID string(27)
-   * 
+   *
    * @Output parameter
-   * 
+   *
    * Status ( 取引状態)
-   * - Status string(16) 
-   * 
+   * - Status string(16)
+   *
    * value :
-   * 
+   *
    * 処理時は以下のステータスが返却されます。
    *  “VOID”：取消
-   * 
+   *
    * Forward (仕向先コード)
    * - Forward string(7)
-   * 
+   *
    * Approve (承認番号)
    * - Approve string(7)
-   * 
+   *
    * Transaction Id (トランザクション ID)
    * - TranID string(28)
-   * 
+   *
    * Transaction Date (決済日付)
    * - TranDate string(14)
-   * 
+   *
    */
 
   public function applePayCancel($access_id, $access_pass, $order_id)
@@ -4597,44 +4597,44 @@ class ShopApi extends Api
 
   /**
    * Apple pay sales process
-   * 
+   *
    * @Input parameter
    * Access ID (取引ID)
    * -- AccessID string(32) not null.
-   * 
+   *
    * Access Pass (取引パスワード)
    * -- AccessPass string(32) not null.
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27) not null.
-   * 
+   *
    * Amount (利用金額)
    * -- Amount number(7) not null.
-   * 
+   *
    * Tax (税送料)
    * -- Tax number(7) not null.
-   * 
+   *
    * @Output parameter
-   * 
+   *
    * Status (取引状態)
    * - Status string(16)
-   * 
+   *
    * Value :
    * 処理時は以下のステータスが返却されます。
    * “SALES”：実売上
-   * 
+   *
    * Forward (仕向先コード)
    * - Forward string(7)
-   * 
+   *
    * Approve (承認番号)
    * - Approve string(7)
-   * 
+   *
    * Transaction ID (トランザクション ID)
    * - TranID string(28)
-   * 
+   *
    * Transaction Date (決済日付)
    * - TranDate string(14)
-   * 
+   *
    */
 
   public function applePaySales($access_id, $access_pass, $order_id, $data = array())
@@ -4651,44 +4651,44 @@ class ShopApi extends Api
 
   /**
    * Apple pay refund process
-   * 
+   *
    * @Input parameter
    * Access ID (取引ID)
    * -- AccessID string(32) not null.
-   * 
+   *
    * Access Pass (取引パスワード)
    * -- AccessPass string(32) not null.
-   * 
+   *
    * Order ID (オーダーID)
    * -- OrderID string(27) not null.
-   * 
+   *
    * Amount (利用金額)
    * -- Amount number(7) not null.
-   * 
+   *
    * Tax (税送料)
    * -- Tax number(7) not null.
-   * 
+   *
    * @Output parameter
-   * 
+   *
    * Status (取引状態)
    * - Status string(16)
-   * 
+   *
    * Value :
    * 処理時は以下のステータスが返却されます。
    * “SALES”：実売上
-   * 
+   *
    * Forward (仕向先コード)
    * - Forward string(7)
-   * 
+   *
    * Approve (承認番号)
    * - Approve string(7)
-   * 
+   *
    * Transaction ID (トランザクション ID)
    * - TranID string(28)
-   * 
+   *
    * Transaction Date (決済日付)
    * - TranDate string(14)
-   * 
+   *
    */
 
   public function ApplePayRefund($access_id, $access_pass, $order_id, $data = array())
@@ -4705,36 +4705,36 @@ class ShopApi extends Api
 
   /**
    * Entry transaction Virtual Account (Bluesky)
-   * 
+   *
    * @Input parameter
-   * 
+   *
    * Version (バージョン )
    * - Version char(3)
-   * 
+   *
    * Shop id (ショップID)
    * - ShopID string(13)
-   * 
+   *
    * Shop Pass (ショップパスワード)
    * - ShopPass string(8)
-   * 
+   *
    * Order id (オーダーID)
    * - OrderID string(27)
-   * 
+   *
    * Amount (利用金額(振込依頼金額))
    * - Amount integer(10)
-   * 
+   *
    * Tax (税送料(振込依頼金額))
    * - Tax integer(10)
-   * 
+   *
    * @Ouput parameter
-   * 
+   *
    * Access id (取引ID)
    * - AccessID string(32)
-   * 
+   *
    * Access pass (取引パスワード)
    * - AccessPass string(32)
-   * 
-   * 
+   *
+   *
    */
 
   public function entryTranGanb($order_id, $amount, $tax = 0)
@@ -4750,71 +4750,71 @@ class ShopApi extends Api
 
   /**
    * Execute transaction virtual account (bluesky)
-   * 
+   *
    * @Input parameter
-   * 
+   *
    * Access id (取引ID)
    * - AccessID string(32)
-   * 
+   *
    * Access pass (取引パスワード)
    * - AccessPass string(32)
-   * 
+   *
    * Order id (オーダーID)
    * - OrderID string(27)
-   * 
+   *
    * Client field 1 (加盟店自由項目1)
    * - ClientField1 string(100)
-   * 
+   *
    * Client field 2 (加盟店自由項目2)
    * - ClientField2 string(100)
-   * 
+   *
    * Client field 3 (加盟店自由項目3)
    * - ClientField3 string(100)
-   * 
+   *
    * Account holder name (口座名義任意名)
    * - AccountGolderOptionalName string(20)
-   * 
+   *
    * Trade days  (取引有効日数)
    * - TradeDays integer(3)
-   * 
+   *
    * Trade reason (取引事由)
    * - TradeReason string(64)
-   * 
+   *
    * Trade client name (振込依頼人氏名 )
    * - TradeClientName string(64)
-   * 
+   *
    * Trade client mail address (振込依頼人メールアドレス)
    * - TradeClientMailAddress string(256)
-   * 
+   *
    * @Ouput parameter
-   * 
+   *
    * Access id (取引ID)
    * - AccessID string(32)
-   * 
+   *
    * Bank code (銀行コード)
    * - BankCode char(4)
-   * 
+   *
    * Bank name (銀行名 )
    * - BankName string(15)
-   * 
+   *
    * Branch code (支店コード)
    * - BranchCode char(3)
-   * 
+   *
    * Branch name (支店名)
    * - BranchName string(15)
-   * 
+   *
    * Account type (預金種別 )
    * - AccountType char(1)
-   * 
+   *
    * Account number (口座番号)
    * - AccountNumber char(7)
-   * 
+   *
    * Account holder name (口座名義)
    * - AccountHolderName string(40)
-   * 
+   *
    * Available date (取引有効期限)
    * - AvailableDate char(8)
-   * 
+   *
    */
 
   public function execTranGanb($access_id, $access_pass, $order_id, $data = array())
@@ -4832,57 +4832,57 @@ class ShopApi extends Api
 
   /**
    * Cancel transaction apple pay
-   * 
+   *
    * @Input parameter
-   * 
+   *
    * Access id (取引ID)
    * - AccessID string(32)
-   * 
+   *
    * Access pass (取引パスワード)
    * - AccessPass string(32)
-   * 
+   *
    * Order id (オーダーID)
    * - OrderID string(27)
-   * 
+   *
    * @Output parameter
-   * 
+   *
    * Status (取引状態)
    * - Status string(16)
-   * 
+   *
    * Value :
    * 以下のステータスを返します。
    *・STOP：取引停止
    *
    * Client field 1 (加盟店自由項目1)
    * - ClientField1 string(100)
-   * 
+   *
    * Client field 2 (加盟店自由項目2)
    * - ClientField2 string(100)
-   * 
+   *
    * Client field 3 (加盟店自由項目3)
    * - ClientField3 string(100)
-   * 
+   *
    * Total transfer amount (累計入金額)
    * - TotalTransferAmount integer(15)
-   * 
+   *
    * Total transfer count (累計入金回数)
    * - TotalTransferCount integer(10)
-   * 
+   *
    * Latest transfer amount (最終振振込額)
    * - LatestTransferAmount string(10)
-   * 
+   *
    * Latest transfer date (最終振込日)
    * - LatestTransferDate string(8)
-   * 
+   *
    * Latest transfer name (最終振込依頼人名)
    * - LatestTransferName string(48)
-   * 
+   *
    * Latest transfer bank name (最終仕向銀行名 )
    * - LatestTransferBankName string(15)
-   * 
+   *
    * Latest transfer branch name (最終仕向支店名)
    * - LatestTransferBranchName string(15)
-   * 
+   *
    */
 
   public function ganbCancel($access_id, $access_pass, $order_id)
@@ -4898,41 +4898,41 @@ class ShopApi extends Api
 
   /**
    * Transaction history
-   * 
+   *
    * @Input parameter
-   * 
+   *
    * Access id (取引ID)
    * - AccessID string(32)
-   * 
+   *
    * Access pass (取引パスワード)
    * - AccessPass string(32)
-   * 
+   *
    * Order id (オーダーID)
    * - OrderID string(27)
-   * 
+   *
    * Date from ()
    * - DateFrom string(8)
-   * 
+   *
    * Date to (照会期間(終了日))
    * - DateTo string(8)
-   * 
+   *
    * @Output parameter
-   * 
+   *
    * Transfer date (振込日)
    * - TransferDate string(8)
-   * 
+   *
    * Transfer name (振込依頼人名)
    * - TransferName string(48)
-   * 
+   *
    * Transfer bank name (仕向銀行名)
    * - TransferBankName string(15)
-   * 
+   *
    * Transfer branch name (仕向支店名)
    * - TransferBranchName string(15)
-   * 
+   *
    * Transfer amount (入金金額)
    * - TransferAmount integer(10)
-   * 
+   *
    */
 
   public function ganbInquiry($access_id, $access_pass, $order_id, $data = array())
@@ -4946,5 +4946,214 @@ class ShopApi extends Api
     $data['order_id'] = $order_id;
 
     return $this->callApi('ganbInquiry', $data);
+  }
+
+  /**
+   * UnregisterRecurring
+   *
+   * @Input parameters
+   *
+   * Recurring ID (自動売上ID)
+   * --RecurringID string(15) not null.
+   **/
+  public function unregisterRecurring($recurring_id)
+  {
+    $data = array(
+      'recurring_id' => $recurring_id
+    );
+
+    return $this->callApi('unregisterRecurring', $data);
+  }
+
+  /**
+   * ChangeRecurring
+   *
+   * @Input parameters
+   *
+   * Recurring ID (自動売上ID)
+   * --RecurringID string(15) not null.
+   *
+   * Amount (利用金額)
+   * --Amount integer(7) not null.
+   *
+   * Tax (税送料)
+   * --Tax integer(7) null.
+   **/
+  public function changeRecurring($recurring_id, $amount, $data = array())
+  {
+    if (!is_array($data)) {
+      $data = array();
+    }
+    $data['recurring_id']  = $recurring_id;
+    $data['amount']      = $amount;
+
+    return $this->callApi('changeRecurring', $data);
+  }
+
+  /**
+   * SearchRecurring
+   *
+   * @Input parameters
+   *
+   * Recurring ID (自動売上ID)
+   * --RecurringID string(15) not null.
+   **/
+  public function searchRecurring($recurring_id)
+  {
+    $data = array(
+      'recurring_id' => $recurring_id
+    );
+
+    return $this->callApi('searchRecurring', $data);
+  }
+
+  /**
+   * SearchRecurringResult
+   *
+   * @Input parameters
+   *
+   * Recurring ID (自動売上ID)
+   * --RecurringID string(15) not null.
+   **/
+  public function searchRecurringResult($recurring_id)
+  {
+    $data = array(
+      'recurring_id' => $recurring_id
+    );
+
+    return $this->callApi('searchRecurringResult', $data);
+  }
+
+  /**
+   * EntryTranSbContinuance
+   *
+   * @Input parameters
+   *
+   * Order ID (オーダーID)
+   * --OrderID string(27) not null
+   *
+   * Amount (利用金額)
+   * --Amount integer(8) not null
+   *
+   * Tax (利用金額)
+   * --Tax Integer(8) null
+   **/
+  public function entryTranSbContinuance($order_id, $amount, $data = array())
+  {
+    if (!is_array($data)) {
+      $data = array();
+    }
+    $data['order_id']  = $order_id;
+    $data['amount']    = $amount;
+
+    return $this->callApi('entryTranSbContinuance', $data);
+  }
+
+  /**
+   * ExecTranSbContinuance
+   *
+   * @Input parameters
+   *
+   * Access ID (取引ID)
+   * --AccessID string(32) not null
+   *
+   * Access Pass (取引パスワード)
+   * --AccessPass string(32) not null
+   *
+   * Client Field 1 (加盟店自由項目1)
+   * --ClientField1 string(100) null
+   *
+   * Client Field 2 (加盟店自由項目2)
+   * --ClientField2 string(100) null
+   *
+   * Client Field 3 (加盟店自由項目3)
+   * --ClientField3 string(100) null
+   *
+   * Ret URL (決済結果戻しURL)
+   * --RetURL string(2048) not null
+   *
+   * Payment Term Sec (支払開始期限秒)
+   * --PaymentTermSec integer(5) null
+   *   default:120
+   *   max:86400 (1day)
+   *
+   * Charge Day (課金基準日)
+   * --ChargeDay string(2) not null
+   *   only 10, 15, 20, 25, 31
+   *
+   * First Month Free Flag (初月無料フラグ)
+   * --FirstMonthFreeFlag string(1) not null
+   *   0:課金する
+   *   1:課金しない
+   **/
+  public function execTranSbContinuance($access_id, $access_pass, $order_id, $ret_url, $charge_day, $first_month_free_flag, $data = array())
+  {
+    if (!is_array($data)) {
+      $data = array();
+    }
+    $data['access_id']        = $access_id;
+    $data['access_pass']      = $access_pass;
+    $data['order_id']        = $order_id;
+    $data['ret_url']        = $ret_url;
+    $data['charge_day']        = $charge_day;
+    $data['first_month_free_flag']  = $first_month_free_flag;
+
+    return $this->callApi('execTranSbContinuance', $data);
+  }
+
+  /**
+   * SbContinuanceChargeCancel
+   *
+   * @Input parameters
+   *
+   * Access ID (取引ID)
+   * --AccessID string(32) not null
+   *
+   * Access Pass (取引パスワード)
+   * --AccessPass string(32) not null
+   *
+   * Order ID (オーダーID)
+   * --OrderID string(27) not null
+   *
+   * Continuance Month (課金月)
+   * --ContinuanceMonth string(6) not null
+   **/
+  public function sbContinuanceChargeCancel($access_id, $access_pass, $order_id, $continuance_month, $data = array())
+  {
+    if (!is_array($data)) {
+      $data = array();
+    }
+    $data['access_id']      = $access_id;
+    $data['access_pass']    = $access_pass;
+    $data['order_id']      = $order_id;
+    $data['continuance_month']  = $continuance_month;
+
+    return $this->callApi('sbContinuanceChargeCancel', $data);
+  }
+
+  /**
+   * SbContinuanceCancel
+   *
+   * @Input parameters
+   *
+   * Access ID (取引ID)
+   * --AccessID string(32) not null
+   *
+   * Access Pass (取引パスワード)
+   * --AccessPass string(32) not null
+   *
+   * Order ID (オーダーID)
+   * --OrderID string(27) not null
+   **/
+  public function sbContinuanceCancel($access_id, $access_pass, $order_id, $data = array())
+  {
+    if (!is_array($data)) {
+      $data = array();
+    }
+    $data['access_id']      = $access_id;
+    $data['access_pass']    = $access_pass;
+    $data['order_id']      = $order_id;
+
+    return $this->callApi('sbContinuanceCancel', $data);
   }
 }
