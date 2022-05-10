@@ -176,6 +176,12 @@ class Api
     'execTranGANB'                  => 'ExecTranGANB.idPass',
     'ganbCancel'                    => 'CancelTranGANB.idPass',
     'ganbInquiry'                   => 'InquiryTransferGANB.idPass',
+
+    'entryTranPaypay' => 'EntryTranPaypay.idPass',
+    'execTranPaypay' => 'ExecTranPaypay.idPass',
+    'paypayStart' => 'PaypayStart.idPass',
+    'paypaySales' => 'PaypaySales.idPass',
+    'paypayCancelReturn' => 'PaypayCancelReturn.idPass',
     // 20201209 追加
     'registerRecurringCredit'       => 'RegisterRecurringCredit.idPass',
     'unregisterRecurring'           => 'UnregisterRecurring.idPass'
