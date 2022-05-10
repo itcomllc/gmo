@@ -196,6 +196,13 @@ class Api
     'changeRecurring'        => 'ChangeRecurring.idPass',
     'searchRecurring'        => 'SearchRecurring.idPass',
     'searchRecurringResult'      => 'SearchRecurringResult.idPass',
+    'bankAccountEntry'             => 'BankAccountEntry.idPass',
+    'bankAccountTranResult'        => 'BankAccountTranResult.idPass',
+
+    'entryTranBankAccount'          => 'EntryTranBankaccount.idPass',
+    'execTranBankAccount'           => 'ExecTranBankaccount.idPass',
+    'bankAccountCancel'             => 'BankaccountCancel.idPass',
+
   );
 
   /**
@@ -741,6 +748,39 @@ class Api
     'regist_type' => array(
       'key' => 'RegistType',
     ),
+    'bank_code' => array(
+      'key' => 'BankCode',
+      'max-length' => 4
+    ),
+    'branch_code' => array(
+      'key' => 'BranchCode',
+      'max-length' => 3
+    ),
+    'account_type' => array(
+      'key' => 'AccountType',
+      'max-length' => 1
+    ),
+    'account_number' => array(
+      'key' => 'AccountNumber',
+      'max-length' => 7
+    ),
+    'account_name' => array(
+      'key' => 'AccountName',
+      'max-length' => 60,
+      'encode' => TRUE
+    ),
+    'account_name_kanji' => array(
+      'key' => 'AccountNameKanji',
+      'max-length' => 60
+    ),
+    'consumer_device' => array(
+      'key' => 'ConsumerDevice',
+      'max-length' => 2
+    ),
+    'target_date' => array(
+      'key' => 'TargetDate',
+      'max-length' => 8
+    ),
   );
 
   /**
@@ -876,6 +916,17 @@ class Api
     'NextChargeDate'    => 'next_charge_date',
     'PrintStr'        => 'print_str',
     'RecurringID'         => 'recurring_id',
+    'TradeClientMailaddress' => 'trade_client_mailaddress',
+    'StartUrl'              => 'start_url',
+
+    'BankCode'              => 'bank_code',
+    'BranchCode'           => 'branch_code',
+    'AccountType'          => 'account_type',
+    'AccountNumber'        => 'account_number',
+    'AccountName'          => 'account_name',
+    'AccountIdentification' => 'account_identification',
+    'BaResultcode'         => 'ba_result_code',
+    'TargetDate'           => 'target_date',
   );
 
   /**
@@ -1088,6 +1139,7 @@ class Api
   public static function processResponse($response)
   {
     // mb_convert_encoding($value, 'UTF-8', 'SJIS');
+    $response = str_replace('+', '%2B', $response);
     parse_str($response, $data);
     // API error or success.
     $success = isset($data['ErrCode']) ? FALSE : TRUE;

@@ -691,6 +691,16 @@ class ShopApi extends Api
     return $this->callApi('entryTranWebmoney', $data);
   }
 
+  public function entryTranBankAccount($order_id, $amount = 0, $data = array())
+  {
+    if (!is_array($data)) {
+      $data = array();
+    }
+    $data['order_id'] = $order_id;
+    $data['amount']   = $amount;
+    return $this->callApi('entryTranBankAccount', $data);
+  }
+
   /**
    * Execute transcation.
    *
@@ -1992,6 +2002,26 @@ class ShopApi extends Api
     return $this->callApi('execTranWebmoney', $data);
   }
 
+  public function execTranBankAccount($access_id, $access_pass, $order_id, $data = array())
+  {
+    // Disable shop id and shop pass.
+    if (!is_array($data)) {
+      $data = array();
+    }
+    $data['access_id']   = $access_id;
+    $data['access_pass'] = $access_pass;
+    $data['order_id']    = $order_id;
+
+    // If member id empty, unset site id and site pass.
+    if (!isset($data['member_id']) || 0 > strlen($data['member_id'])) {
+      $this->disableSiteIdAndPass();
+    }
+
+    $this->addHttpParams();
+
+    return $this->callApi('execTranBankAccount', $data);
+  }
+
   /**
    * Alter tran.
    *
@@ -2435,6 +2465,17 @@ class ShopApi extends Api
     $data['order_id']          = $order_id;
     $data['continuance_month'] = $continuance_month;
     return $this->callApi('auContinuanceChargeCancel', $data);
+  }
+
+  public function bankAccountCancel($access_id, $access_pass, $order_id, $data = array())
+  {
+    if (!is_array($data)) {
+      $data = array();
+    }
+    $data['access_id']         = $access_id;
+    $data['access_pass']       = $access_pass;
+    $data['order_id']          = $order_id;
+    return $this->callApi('bankAccountCancel', $data);
   }
 
   /**
