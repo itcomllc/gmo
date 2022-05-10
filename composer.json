@@ -1,11 +1,11 @@
 {
-    "name": "arsaga-partners/gmo-pg-php",
+    "name": "itcomllc/gmo-pg-php",
     "description": "GMO Payment Gateway SDK for PHP",
     "license": "MIT",
     "authors": [
         {
-            "name": "everright.chen",
-            "email": "everright.chen@gmail.com"
+            "name": "Okuyama",
+            "email": "okuyama@itcom.ne.jp"
         }
     ],
     "minimum-stability": "beta",
@@ -16,5 +16,5 @@
         "psr-4": {
             "GMO\\Payment\\": "src/GMO/Payment"
         }
-    } 
+    }
 }
