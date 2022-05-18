@@ -1,20 +1,28 @@
 {
-    "name": "itcomllc/gmo-pg-php",
+    "name": "itcomllc/gmo",
     "description": "GMO Payment Gateway SDK for PHP",
+    "type": "library",
     "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Itcomllc\\GMO\\": "src/"
+        }
+    },
     "authors": [
         {
             "name": "Okuyama",
             "email": "okuyama@itcom.ne.jp"
         }
     ],
-    "minimum-stability": "beta",
     "require": {
-        "php": ">=5.3.0"
+        "php": "^8.0.2",
+        "laravel/framework": "^9.11"
     },
-    "autoload": {
-        "psr-4": {
-            "GMO\\Payment\\": "src/GMO/Payment"
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Itcomllc\\Gmo\\Providers\\GmoServiceProvider"
+            ]
         }
     }
 }
