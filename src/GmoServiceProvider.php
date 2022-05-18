@@ -1,11 +1,21 @@
 <?php
 
-namespace Itcomllc\Gmo\Providers;
+namespace GMO;
 
 use Illuminate\Support\ServiceProvider;
 
 class GmoServiceProvider extends ServiceProvider
 {
+    /**
+     * Register services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
     /**
      * Initial startup process for all application services.
      *

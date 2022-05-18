@@ -5,7 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Itcomllc\\GMO\\": "src/"
+            "GMO\\": "src/"
         }
     },
     "authors": [
@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Itcomllc\\Gmo\\Providers\\GmoServiceProvider"
+                "GMO\\GmoServiceProvider"
             ]
         }
     }
