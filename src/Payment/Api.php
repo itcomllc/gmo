@@ -8,6 +8,7 @@
 namespace GMO\Payment;
 
 use GMO\Payment\Exceptions\GmoException;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Method : IKKATU(一括).

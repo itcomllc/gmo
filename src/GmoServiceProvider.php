@@ -27,7 +27,7 @@ class GmoServiceProvider extends ServiceProvider
             define('DS', DIRECTORY_SEPARATOR);
         }
 
-        $config_path = dirname(__DIR__, 2) . DS . 'config' . DS . 'gmo.php';
+        $config_path = dirname(__DIR__, 1) . DS . 'config' . DS . 'gmo.php';
         $this->publishes([
             $config_path => config_path('gmo.php'),
         ], 'gmo-config');
