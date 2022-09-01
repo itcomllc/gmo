@@ -197,6 +197,7 @@ class Api
     'changeRecurring'        => 'ChangeRecurring.idPass',
     'searchRecurring'        => 'SearchRecurring.idPass',
     'searchRecurringResult'      => 'SearchRecurringResult.idPass',
+    'searchRecurringResultFile'      => 'SearchRecurringResultFile.idPass',
     'bankAccountEntry'             => 'BankAccountEntry.idPass',
     'bankAccountTranResult'        => 'BankAccountTranResult.idPass',
 
@@ -273,6 +274,14 @@ class Api
     'charge_day' => array(
       'key' => 'ChargeDay',
       'length' => 2,
+    ),
+    'charge_date' => array(
+      'key' => 'ChargeDate',
+      'length' => 8,
+    ),
+    'charge_method' => array(
+      'key' => 'Method',
+      'allow' => array('RECURRING_CREDIT', 'RECURRING_ACCOUNTTRANS'),
     ),
     'charge_month' => array(
       'key' => 'ChargeMonth',
@@ -1205,6 +1214,43 @@ class Api
   public function getApiUrl()
   {
     return $this->apiUrl;
+  }
+
+  /**
+   * Execute api call method.
+   */
+  public function callFile($method, $param = array())
+  {
+    $this->call($method, $param);
+    //return $this->execute();
+    $uri = $this->getApiUrl();
+    // Process parameters as GMO format.
+    $params = $this->buildParams();
+    $ch = curl_init($uri);
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, TRUE);
+    curl_setopt($ch, CURLOPT_FAILONERROR, TRUE);
+    // Append post fields.
+    if ($params) {
+      curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params, '', '&'));
+    }
+    $response = curl_exec($ch);
+    // Throw exception if curl error.
+    $error = curl_error($ch);
+    if ($error) {
+      throw new \Exception($error, curl_errno($ch));
+    }
+    // Close curl connect.
+    curl_close($ch);
+    // Process response before return.
+    if ($response) {
+      //$response = self::processResponse($response);
+      return $response;
+    }
+
+    return NULL;
   }
 
   /**

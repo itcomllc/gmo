@@ -5066,6 +5066,27 @@ class ShopApi extends Api
   }
 
   /**
+   * SearchRecurringResultFile
+   *
+   * @Input parameters
+   *
+   * Method
+   * -- RECURRING_CREDIT ：クレジットカード
+   * -- RECURRING_ACCOUNTTRANS ：口座振替
+   * ChargeDate
+   * -- Date char(8)
+   **/
+  public function searchRecurringResultFile($Method, $ChargeDate)
+  {
+    $data = array(
+      'charge_method' => $Method,
+      'charge_date' => $ChargeDate,
+    );
+
+    return $this->callFile('searchRecurringResultFile', $data);
+  }
+
+  /**
    * EntryTranSbContinuance
    *
    * @Input parameters
