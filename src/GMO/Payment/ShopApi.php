@@ -3374,6 +3374,7 @@ class ShopApi extends Api
     );
     return $this->callApi('tdVerify', $data);
   }
+  
 
   /**
    * To analyze the results of the authentication service.
@@ -3383,6 +3384,64 @@ class ShopApi extends Api
   public function secureTran($pa_res, $md)
   {
     return $this->tdVerify($pa_res, $md);
+  }
+
+  /**
+   * 3D secure authentication result (3D セキュア認証結果).
+   *
+   * @Input parameters
+   *
+   * 取引ID
+   * --AccessID string(32) not null.
+   *
+   * 取引パスワード
+   * --AccessPass string(32) not null.
+   *
+   * @Output parameters
+   *
+   * Order ID (オーダーID)
+   * --OrderID string(27)
+   *
+   * Forward (仕向先コード)
+   * --Forward string(7)
+   *
+   * Method (支払方法)
+   * --Method string(1)
+   *
+   * Pay times (支払回数)
+   * --PayTimes integer(2)
+   *
+   * Approve (承認番号)
+   * --Approve string(7)
+   *
+   * Transcation ID (トランザクション ID)
+   * --TransactionId string(28)
+   *
+   * Transcation date (決済日付)
+   * --TranDate string(14)
+   *   Format: yyyyMMddHHmmss
+   *
+   * Check string (MD5 ハッシュ)
+   * --CheckString string(32)
+   *   MD5 hash of OrderID ~ TranDate + shop password
+   *   OrderID~TranDate+ショップパスワー ドの MD5 ハッシュ
+   *
+   * Client field 1 (加盟店自由項目 1)
+   * --ClientField1 string(100)
+   *
+   * Client field 2 (加盟店自由項目 2)
+   * --ClientField2 string(100)
+   *
+   * Client field 3 (加盟店自由項目 3)
+   * --ClientField3 string(100)
+   */
+  public function secureTran2($access_id, $access_pass)
+  {
+    $data = array(
+      'access_id'    => $access_id,
+      'access_pass'  => $access_pass,
+    );
+    return $this->callApi('secureTran2', $data);
   }
 
   /**

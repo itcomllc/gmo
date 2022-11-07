@@ -69,6 +69,7 @@ class Api
     'execTran'                      => 'ExecTran.idPass',
     'alterTran'                     => 'AlterTran.idPass',
     'tdVerify'                      => 'SecureTran.idPass',
+    'secureTran2'                   => 'SecureTran2.idPass',
     'changeTran'                    => 'ChangeTran.idPass',
     'saveCard'                      => 'SaveCard.idPass',
     'deleteCard'                    => 'DeleteCard.idPass',

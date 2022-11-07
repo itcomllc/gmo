@@ -7,7 +7,7 @@ Installation
 ------------
 
 ```bash
-composer require k1low/gmo-pg-php
+composer require lw-iharada/gmo-pg-php
 ```
 
 Usage
