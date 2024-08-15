@@ -182,6 +182,8 @@ class Api
     'paypayStart'                   => 'PaypayStart.idPass',
     'paypaySales'                   => 'PaypaySales.idPass',
     'paypayCancelReturn'            => 'PaypayCancelReturn.idPass',
+
+    'secureTran2'                   => 'SecureTran2.idPass',
   );
 
   /**
