@@ -611,7 +611,7 @@ class Api
     ),
     'td_flag' => array(
       'key' => 'TdFlag',
-      'allow' => array(0, 1),
+      'allow' => array(0, 1, 2),
     ),
     'td_tenant_name' => array(
       'key' => 'TdTenantName',
