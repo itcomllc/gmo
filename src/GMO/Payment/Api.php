@@ -545,7 +545,7 @@ class Api
       'max-length' => 20,
     ),
     'ret_url' => array(
-      'key' => 'RetURL',
+      'key' => 'RetUrl',
       'max-length' => 256,
     ),
     'security_code' => array(
@@ -617,6 +617,10 @@ class Api
       'key' => 'TdTenantName',
       'max-length' => 25,
     ),
+    'td2_type' => array(
+      'key' => 'Tds2Type',
+      'allow' => array(1, 2, 3),
+    ),
     'tel_no' => array(
       'key' => 'TelNo',
       'max-length' => 13,
@@ -682,6 +686,10 @@ class Api
     'token_type'  => array(
       'key' => 'TokenType',
       'max-length'  => 1
+    ),
+    'callback_type'  => array(
+      'key' => 'CallbackType',
+      'allow' => array(1, 2, 3),
     )
   );
 
