@@ -617,7 +617,7 @@ class Api
       'key' => 'TdTenantName',
       'max-length' => 25,
     ),
-    'td2_type' => array(
+    'tds2_type' => array(
       'key' => 'Tds2Type',
       'allow' => array(1, 2, 3),
     ),
