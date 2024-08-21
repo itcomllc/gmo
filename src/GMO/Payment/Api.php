@@ -545,6 +545,10 @@ class Api
       'max-length' => 20,
     ),
     'ret_url' => array(
+      'key' => 'RetURL',
+      'max-length' => 256,
+    ),
+    'return_url' => array(
       'key' => 'RetUrl',
       'max-length' => 256,
     ),
