@@ -625,6 +625,10 @@ class Api
       'key' => 'Tds2Type',
       'allow' => array(1, 2, 3),
     ),
+    'tds2_email' => array(
+      'key' => 'Tds2Email',
+      'max-length' => 254,
+    ),
     'tel_no' => array(
       'key' => 'TelNo',
       'max-length' => 13,
