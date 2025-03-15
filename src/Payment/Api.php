@@ -192,6 +192,8 @@ class Api
     'paypaySales' => 'PaypaySales.idPass',
     'paypayCancelReturn' => 'PaypayCancelReturn.idPass',
 
+    'secureTran2'                   => 'SecureTran2.idPass',
+
     'registerRecurringCredit'    => 'RegisterRecurringCredit.idPass',
     'registerRecurringAccounttrans'  => 'RegisterRecurringAccounttrans.idPass',
     'unregisterRecurring'      => 'UnregisterRecurring.idPass',
@@ -205,7 +207,6 @@ class Api
     'entryTranBankAccount'          => 'EntryTranBankaccount.idPass',
     'execTranBankAccount'           => 'ExecTranBankaccount.idPass',
     'bankAccountCancel'             => 'BankaccountCancel.idPass',
-
   );
 
   /**
@@ -606,6 +607,10 @@ class Api
       'key' => 'RetURL',
       'max-length' => 256,
     ),
+    'return_url' => array(
+      'key' => 'RetUrl',
+      'max-length' => 256,
+    ),
     'security_code' => array(
       'key' => 'SecurityCode',
       'max-length' => 4,
@@ -673,11 +678,19 @@ class Api
     ),
     'td_flag' => array(
       'key' => 'TdFlag',
-      'allow' => array(0, 1),
+      'allow' => array(0, 1, 2),
     ),
     'td_tenant_name' => array(
       'key' => 'TdTenantName',
       'max-length' => 25,
+    ),
+    'tds2_type' => array(
+      'key' => 'Tds2Type',
+      'allow' => array(1, 2, 3),
+    ),
+    'tds2_email' => array(
+      'key' => 'Tds2Email',
+      'max-length' => 254,
     ),
     'tel_no' => array(
       'key' => 'TelNo',
@@ -792,6 +805,10 @@ class Api
       'key' => 'TargetDate',
       'max-length' => 8
     ),
+    'callback_type'  => array(
+      'key' => 'CallbackType',
+      'allow' => array(1, 2, 3),
+    )
   );
 
   /**
