@@ -192,8 +192,6 @@ class Api
     'paypaySales' => 'PaypaySales.idPass',
     'paypayCancelReturn' => 'PaypayCancelReturn.idPass',
 
-    'secureTran2'                   => 'SecureTran2.idPass',
-
     'registerRecurringCredit'    => 'RegisterRecurringCredit.idPass',
     'registerRecurringAccounttrans'  => 'RegisterRecurringAccounttrans.idPass',
     'unregisterRecurring'      => 'UnregisterRecurring.idPass',
